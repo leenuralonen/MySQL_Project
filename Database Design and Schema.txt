@@ -1,0 +1,157 @@
+2. Database Design and Schema
+
+Phase 2 tasked us with crafting a comprehensive chart, known as an Entity-Relationship
+Diagram (ERD), to map out how our data is structured for our client—a travel expert agency.
+This involved meticulously illustrating the relationships between various data points within our
+tables and specifying the rules governing each piece of information.
+Furthermore, we were required to develop a simplified version of this chart, referred to as a
+Table Instances Chart (TIC), tailored specifically to the needs of our client company, a travel
+expert agency. This streamlined model aimed to streamline their understanding of our data
+structure, facilitating smoother operations and decision-making within their organization.
+
+2.1 X:X Relationships
+
+1. One-to-One (1:1) Relationship:
+Each product in the "Product" table has exactly one description.
+Each region in the "Region" table has exactly one description.
+
+2. One-to-Many (1:N) Relationships:
+Each supplier in the "Supplier" table can supply multiple products, but each product is supplied
+by only one supplier.
+Each company in the "Company" table can have multiple addresses, but each address belongs to
+only one company.
+Each location in the "Location" table belongs to one region, but each region can have multiple
+locations.
+Each customer in the "Customer" table has one address, but each address can be associated with
+multiple customers.
+Each itinerary in the "Itinerary" table can be related to multiple commissions, but each
+commission is related to only one itinerary.
+
+3. Many-to-Many (N:M) Relationships:
+Each itinerary in the "Itinerary" table can be connected to multiple trip types, and each trip type can
+be associated with multiple itineraries.
+Each transaction in the "Transaction" table can involve multiple payments, and each payment can
+be part of multiple transactions.
+
+
+2.2 Table relations:
+Product (table)
+• Product_id (PK) -> Product_Description
+Supplier (table)
+• Supplier_id (PK) -> Product_id(FK), company_id(FK), Contact_name
+Company (table)
+• Company_id(PK) -> Address_id(FK), Location_id(FK), Contact_id(FK), Affiliation_code(FK)
+
+Location(table)
+• Location_id(PK) -> Region_id(FK), City, Province, Country
+
+Region(table)
+• Region_id (PK) -> Region_description
+
+Affiliation (table)
+• Affilation_code -> Affiliation_Description
+
+Address (table)
+• Address_id (PK) -> Suite_number, Building_number, Street_name, quadrant
+Customer(table)
+• Customer_id(PK) -> First_name, Last_name, Email, Address_id(FK), Location_id(FK)
+
+Payment(table)
+• Payment_id(PK) -> Card_number, Card_name, Card_type, CVV, Expiry_date
+
+Agency Fees(table)
+• Agency_fee_id (PK) -> Fee_description, Fee_amount
+
+Itinerary(table)
+• Itinerary_id(PK) -> Trip_type_id(FK), Customer_id(FK),Agent_id(FK), Start_date,
+Date_booked, End_date, Transaction_id(FK)
+
+Trip(table)
+• Trip_type_id(PK) -> Trip_type_description, Class_type_code(FK)
+Transaction_table
+• Transaction_id PK) -> Payment_id (FK), Bill_code (FK)
+
+Bill(Table)
+• Bill_code (PK) -> Agency_fee_id (FK), Bill_description
+
+Class (table)
+• Class_type_code (PK) ->Class_type_description
+
+Agent(table)
+• Agent_id (PK)-> First_name, last_name
+
+Commission(table)
+• Commision_id(PK) -> Itinerary_id(FK), Commision_amount
+
+2.3 Entities and attributes:
+1. Product:
+• Entity: Product
+• Attributes: Product_id (Primary Key), Product_Description
+
+2. Supplier:
+• Entity: Supplier
+• Attributes: Supplier_id (Primary Key), Product_id (Foreign Key), company_id (Foreign Key),
+Contact_name
+
+3. Company:
+• Entity: Company
+• Attributes: Company_id (Primary Key), Address_id (Foreign Key), Location_id (Foreign Key),
+Contact_id (Foreign Key), Affiliation_code (Foreign Key)
+
+4. Location:
+• Entity: Location
+• Attributes: Location_id (Primary Key), Region_id (Foreign Key), City, Province, Country
+
+5. Region:
+• Entity: Region
+• Attributes: Region_id (Primary Key), Region_description
+
+6. Affiliation:
+• Entity: Affiliation
+• Attributes: Affiliation_code (Primary Key), Affiliation_Description
+
+7. Address:
+• Entity: Address
+• Attributes: Address_id (Primary Key), Suite_number, Building_number, Street_name, quadrant
+
+8. Customer:
+• Entity: Customer
+• Attributes: Customer_id (Primary Key), First_name, Last_name, Email, Address_id (Foreign
+Key), Location_id (Foreign Key)
+
+9. Payment:
+• Entity: Payment
+• Attributes: Payment_id (Primary Key), Card_number, Card_name, Card_type, CVV, Expiry_date
+
+10. Agency Fees:
+• Entity: Agency_Fees
+• Attributes: Agency_fee_id (Primary Key), Fee_description, Fee_amount
+
+11. Itinerary:
+• Entity: Itinerary
+• Attributes: Itinerary_id (Primary Key), Trip_type_id (Foreign Key), Customer_id (Foreign Key),
+Agent_id (Foreign Key), Start_date, Date_booked, End_date, Transaction_id (Foreign Key)
+
+12. Trip:
+• Entity: Trip
+• Attributes: Trip_type_id (Primary Key), Trip_type_description, Class_type_code (Foreign Key)
+
+13. Transaction:
+• Entity: Transaction
+• Attributes: Transaction_id (Primary Key), Payment_id (Foreign Key), Bill_code (Foreign Key)
+
+14. Bill:
+• Entity: Bill
+• Attributes: Bill_code (Primary Key), Agency_fee_id (Foreign Key), Bill_description
+
+15. Class:
+• Entity: Class
+• Attributes: Class_type_code (Primary Key), Class_type_description
+
+16. Agent:
+• Entity: Agent
+• Attributes: Agent_id (Primary Key), First_name, Last_name
+
+17. Commission:
+• Entity: Commission
+• Attributes: Commision_id (Primary Key), Itinerary_id (Foreign Key), Commision_amount
