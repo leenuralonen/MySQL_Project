@@ -1,0 +1,121 @@
+Gathering Requirements and Information
+During our session with Travel Expert Agency, we delved into an in-depth discussion
+regarding their organizational hurdles and overarching objectives. It became evident that their primary
+need revolved around establishing a robust database infrastructure capable of securely managing and
+organizing vast arrays of data sourced from customers, suppliers, and internal operations. The emphasis
+was not solely on data storage but on ensuring the seamless functionality and efficiency of the database
+system. To comprehensively address their requirements, we meticulously gathered pertinent details
+encompassing software preferences, financial constraints, and hardware specifications. Furthermore, TEA
+elucidated their corporate aspirations, underscoring the importance of aligning technological solutions
+with their overarching business goals. With a clear understanding of their needs and aspirations, it was
+revealed that TEA had allocated a budget of 500k towards realizing their database objectives.
+1.1 Out Of Scope
+● Organizing the data from customers
+● Updating hardware, software, network and database (upgrading or downgrading)
+● Relocating the server
+● Altering the database and network in anyway
+● Defining and implementing complex business rules and logic is generally beyond the scope of
+database development.
+● Entering the data ourselves
+● Implementing a business strategy to the travel agency
+● Handle the finance side of the business
+
+1.2 In Scope
+● Acquiring resources required to build a database.
+● Planning and Scaling of the Database
+● Implement high security into the database to store sensitive Data
+● Developing an interface that is easy to interact with
+● Make entering data efficient and accurate
+● Configuring the Database to connecting into the server
+● Train the agents on how to enter and store data using oracle
+● Train the manager on how to create a monthly audit report
+● Train the Owner to monitor all sales, budgets and other finances
+● Train the manager how to monitor the monthly sales of the agents
+● Provide a soft launch
+● Will troubleshoot any bugs and/or defects
+● Will Declare the official launch of the database
+
+2
+
+1.3 Requirements
+1.3.1 Objectives
+1. To create an easy and accessible database while being efficient and accurate.
+2. To have major security set in the database including encryption and unique passwords
+implemented.
+3. Give the clients a smooth, secure and convenient way to book.
+4. Ensure data security, Integrity and reduce redundancy all through out the database.
+5. Provide incremental small and big file backup plans including cold and hot backups.
+6. Create a way For other users to connect to the same server.
+
+1.3.2 Requirements
+1. Easy to input (M)
+A.) For a more efficient and accurate flow of work
+2. Centralized Database (M)
+A.) In order for it to be centralized, the database has to be in a centralized drive (X:) which
+everyone has the access to.
+3. Owner needs monthly report (M)
+A.) Owner will need a monthly report on all the expenses, profits and sales
+4. Tracking how much money agent brings (M)
+A.) Needs to track the sales of the agents so they will be fairly compensated
+5. Tracking payments (installments) (M)
+A.) For all financings, it will need to be tracked of how much money is initially paid, the deposits
+and the final payment. All these will include the date.
+6. Will need a better and more efficient way to communicate with the suppliers (M)
+A.) Communicating through the phone is not efficient enough. Perhaps Email? Fax?
+7. Will need an online website (M)
+A.) Online booking will minimize work for the agent and will keep the cost low, since the
+customer is booking it themselves
+8. Be able to create a Customer Account (W)
+A.) Having Customer Accounts will be easier for both agent and customer side to monitor and
+manage the specific booking.
+
+3
+1.3.3 Technical Infrastructure Requirements
+● Server (TBD)
+○ Still deciding between On-Prem or Cloud based servers
+● Hard-wired and wireless network to connect to the internet
+○ Preferably optic fiber connection for the maximum bandwidth
+● Licenses to operate a database
+○ Oracle DB
+● Separate server to store the backup and recovery data
+○ Separate Server is needed just in case a data breach or leak occurs
+● Custom built office PC
+○ Easily scalable for the work environment’s needs
+● Operating System
+○ Latest version of Windows
+● Database Management System
+○ OracleDB
+● Backup Power Supply. (W)
+○ In case power goes out, the company won't lose all unsaved data
+
+1.3.4 Data Requirements
+● Data Growth Expectation
+○ Estimate the expected growth of data over time. Consider factors like the increase in the
+number of records or the expansion of data fields.
+
+● Data Security
+○ A login will be mandatory, and data encryption to prevent leaks and breaches.
+● Disaster Recovery and Redundancy
+○ Plan for disaster recovery by defining data redundancy and failover strategies.
+● Data Archiving and Purging
+○ Specify criteria for moving data to archival storage or permanently deleting it.
+● Secure Data Transfer
+○ Able to Load all existing data into the database securely.
+● Incremental Backup
+○ Plan and schedule Incremental backups and specify whether it is a cold or hot backup.
+
+4
+
+1.3.5 Budget
+1.) Project initiation (1 week) $20,000
+2.) Gathering Requirements (1 week) $20,000
+3.) Database Design (2 weeks) $80,000
+4.) Database Backup and Recovery (1 week) $20,000
+5.) Development (2 weeks) $100,000
+6.) Documentation (1 week) $30,000
+7.) Testing and QA (2 weeks) $120,000
+8.) Deployment (1 week) $50,000
+9.) Project Closure (1 week) $20,000
+10.)Post-implementation review (2 weeks) $20,000
+11.)Contingency ($40,000)
+Total: $500,000
