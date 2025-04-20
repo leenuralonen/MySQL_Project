@@ -1,0 +1,78 @@
+3 Architecture and Administration
+
+The document outlines the comprehensive setup for configuring a database, presenting a blueprint for
+disk configuration and a step-by-step recipe for creating the database. It includes details on the
+initialization parameter file (init.ora) needed for the database's initialization. Additionally, it specifies the
+commands required to execute the database creation process via scripts. The summary provides reports
+utilizing various database views like v$datafile for data files, v$logfile for log files, v$controlfile for
+control files, and dba_tablespaces for tablespaces, along with other relevant dictionary views, to ensure a
+thorough overview of the database's structure and components.
+3.1 The Blueprint:
+The “Blueprint”:
+The blueprint is the disk configuration for the files of the database. The files includes: Datafiles, logfiles,
+redo files and undo files. We keep them separate just in case a disk gets corrupted all files are not
+affected:
+LOG FILE GROUP 1 -> C:\D\oradata\ws3\redo01a.log
+LOG FILE GROUP 1 -> C:\F\oradata\ws3\redo01b.log
+LOG FILE GROUP 2 -> C:\E\oradata\ws3\redo02a.log
+LOG FILE GROUP 2 -> C:\F\oradata\ws3\redo02b.log
+LOG FILE GROUP 3 -> C:\app\oracle\oradata\WS3\redo03a.log
+LOG FILE GROUP 3 -> C:\D\oradata\ws3\redo03b.log
+DATAFILE -> C:\F\oradata\ws3\system01.dbf
+SYSAUX DATAFILE -> C:\F\oradata\ws3\system01.dbf
+TEMPFILE -> C:\app\oracle\oradata\ws3\temp01.dbf
+DATA FILE -> C:\F\oradata\ws3\undotbs01.dbf
+CONTROL FILE -> C:\app\oracle\oradata\ws3\control1.ctl,
+CONTROL FILE -> C:\app\oracle\oradata\ws3\control2.ctl
+
+10
+
+3.2 The Recipe:
+The Recipe:
+The recipe is the procedures or steps to create the database. This is given to someone who is very new or
+has a subpar knowledge of creating and configuring an oracle database.
+1.) Select a name for your database
+2.) Open the command prompt by searching ‘CMD’ in the search option in the start menu.
+3.) To implement the database name into the OS system please type the following: ‘set
+oracle_sid=*database name*’. SID stands for system ID.
+4.) Nothing should appear after but a new command line. After that, you need to create an instance
+file. By doing so: oradim -NEW -SID ‘database name’ -STARTMODE MANUAL -PFILE *path
+of the initfile*’
+5.) It should say ‘Instance created’ after pressing enter
+6.) Now open up the SQLplus without logging in by doing the following: sqlplus /nolog.
+7.) It should prompt a message stating ‘Connected to an idle instance’.
+8.) Create a server parameter file by entering the following: ‘create an spfile from pfile;’
+
+9.) Sql should prompt a message saying ‘File Created’.
+10.) Start up the database by entering the following: ‘startup nomount’. Nomount means to ‘closed’ in
+database terms. A long startup is expected.
+11.) After starting up the database unmounted, you are now ready to create your database by entering
+the following:
+
+CREATE DATABASE sid
+USER SYS IDENTIFIED BY Qwerty123
+USER SYSTEM IDENTIFIED BY Qwerty123
+LOGFILE GROUP 1 ('C:\logs\ sid\redo01a.log','C:\logs\sid\
+redo01b.log') SIZE 10M,
+GROUP 2 ('C:\logs\sid\redo02a.log','C:\logs\sid\
+redo02b.log') SIZE 10M,
+GROUP 3 ('C:\logs\sid\redo03a.log','C:\logs\sid\
+redo03b.log') SIZE 10M
+MAXINSTANCES 1
+MAXLOGHISTORY 1
+MAXLOGFILES 16
+MAXLOGMEMBERS 3
+MAXDATAFILES 1024
+CHARACTER SET AL32UTF8
+NATIONAL CHARACTER SET AL16UTF16
+EXTENT MANAGEMENT LOCAL
+DATAFILE 'C:\app\oracle\oradata\sid\system01.dbf'
+SIZE 700M REUSE AUTOEXTEND ON NEXT 10240K MAXSIZE 800M
+SYSAUX DATAFILE 'C:\app\oracle\oradata\sid\sysaux01.dbf'
+SIZE 500M REUSE AUTOEXTEND ON NEXT 10240K MAXSIZE 650M
+DEFAULT TEMPORARY TABLESPACE tempts1
+TEMPFILE 'C:\app\oracle\oradata\sid\temp01.dbf'
+SIZE 20M REUSE AUTOEXTEND ON NEXT 640K MAXSIZE 50M
+UNDO TABLESPACE undotbs1
+DATAFILE 'C:\app\oracle\oradata\sid\undotbs01.dbf'
+SIZE 200M REUSE AUTOEXTEND ON NEXT 5120K MAXSIZE 400M;
