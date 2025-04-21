@@ -1,0 +1,248 @@
+Workshop 4 : Create Tables and Load Data via SQL*Loader
+4.1 Creating tables
+The following tables were created for our TEA project and used the same querry template for all To see the exact queries please refer to the apendix. To create a table and assign it to a specific tablespace is like so: 
+
+CREATE TABLE example_table (
+id NUMBER, 
+name VARCHAR2(50), 
+age NUMBER ) 
+TABLESPACE wrkshp;
+
+
+Below are the scripts or queries employed to establish the foreign key constraints for each table
+
+alter table bill
+add constraint fk_agency_fee_id
+foreign key (agency_fee_id)
+references agency_fees (agency_fee_id);
+
+alter table commission
+add constraint fk_itinerary_id
+foreign key (itinerary_id)
+references itinerary (itinerary_id);
+
+alter table company
+add constraint fk_address_id
+foreign key (address_id)
+references address (address_id);
+
+alter table company
+add constraint fk_location_id
+foreign key (location_id)
+references location (location_id);
+
+alter table company
+add constraint fk_contact_id
+foreign key (contact_id)
+references company (contact_id);
+
+alter table company
+add constraint fk_affiliation_code
+foreign key (affiliation_code)
+references affiliation (affiliation_code);
+
+alter table customer
+add constraint fkey_address_id
+foreign key (address_id)
+references address (address_id);
+
+alter table customer
+add constraint fkey_location_id
+foreign key (location_id)
+references location (location_id);
+
+alter table itinerary
+add constraint fk_trip_type_id
+foreign key (trip_type_id)
+references trip (trip_type_id);
+
+alter table location
+add constraint fk_region_id
+foreign key (region_id)
+references region (region_id);
+
+alter table supplier
+add constraint fk_product_id
+foreign key (product_id)
+references product (product_id);
+
+alter table supplier
+add constraint fk_company_id
+foreign key (company_id)
+references company (company_id);
+
+ALTER TABLE itinerary
+RENAME COLUMN trip_id TO trip_type_id;
+
+alter table itinerary
+add constraint fk_customer_id
+foreign key (customer_id)
+references customer (customer_id);
+
+alter table itinerary
+add constraint fk_trip_type_id
+foreign key (trip_type_id)
+references trip (trip_type_id);
+
+alter table itinerary
+add constraint fk_agent_id
+foreign key (agent_id)
+references agent (agent_id);
+
+alter table transaction
+add constraint fkey_transaction_id
+foreign key (transaction_id)
+references transaction (transaction_id);
+
+alter table trip
+add constraint fk_bill_code
+foreign key (bill_code)
+references bill (bill_code);
+
+We establish these foreign keys with the primary objectives of constructing a robust structure within relational databases. This practice serves to guarantee distinctive row identification, uphold referential integrity, ensure consistent relationships within the data, facilitate the linkage of two or more tables, and adeptly organize related data across multiple tables while preserving their integrity.
+
+4.3 Confirmation of Creation and constraints of tables:
+
+Below, you will find the outcomes derived from the execution of the "DESCRIBE" query for each respective table. This information is scrutinized to verify the adherence to specified constraints, ascertain data types, and ensure the maintenance of data integrity.
+
+SQL> DESC address;
+Name              Null?    Type
+----------------- -------- --------------
+ADDRESS_ID        NOT NULL NUMBER(8)
+SUITE_NUMBER               VARCHAR2(100)
+BUILDING_NUMBER   NOT NULL NUMBER(7)
+STREET_NAME       NOT NULL VARCHAR2(100)
+QUADRANT          NOT NULL VARCHAR2(2)
+
+SQL> DESC agent;
+Name              Null?    Type
+----------------- -------- --------------
+AGENT_ID          NOT NULL NUMBER(6)
+AGENT_FIRST_NAME           VARCHAR2(15)
+AGENT_LAST_NAME            VARCHAR2(15)
+
+SQL> DESC affiliation;
+Name                      Null?    Type
+------------------------- -------- --------------
+AFFILIATION_CODE         NOT NULL NUMBER(5)
+AFFILIATION_DESCRIPTION           VARCHAR2(100)
+
+SQL> DESC payment;
+Name              Null?    Type
+----------------- -------- --------------
+PAYMENT_ID        NOT NULL NUMBER(5)
+CARD_NAME                 VARCHAR2(100)
+CARD_NUMBER               VARCHAR2(100)
+CARD_TYPE                 VARCHAR2(100)
+CVV                       NUMBER(7)
+EXPIRY_DATE               NUMBER(10)
+
+SQL> DESC supplier;
+Name              Null?    Type
+----------------- -------- --------------
+SUPPLIER_ID       NOT NULL NUMBER(12)
+PRODUCT_ID        NOT NULL NUMBER(12)
+COMPANY_ID        NOT NULL NUMBER(10)
+CONTACT_NAME      NOT NULL VARCHAR2(25)
+
+SQL> DESC location;
+Name              Null?    Type
+----------------- -------- --------------
+LOCATION_ID       NOT NULL NUMBER(4)
+REGION_ID         NOT NULL NUMBER(5)
+CITY              NOT NULL VARCHAR2(100)
+PROVINCE          NOT NULL VARCHAR2(100)
+COUNTRY           NOT NULL VARCHAR2(100)
+
+SQL> DESC itinerary;
+Name              Null?    Type
+----------------- -------- --------------
+ITINERARY_ID      NOT NULL NUMBER(8)
+TRIP_ID           NOT NULL VARCHAR2(20)
+CUSTOMER_ID       NOT NULL NUMBER(16)
+AGENT_ID          NOT NULL VARCHAR2(12)
+TRANSACTION_ID    NOT NULL NUMBER(4)
+DATE_BOOKED       NOT NULL DATE
+START_DATE        NOT NULL DATE
+END_DATE          NOT NULL DATE
+
+SQL> DESC customer;
+Name              Null?    Type
+----------------- -------- --------------
+CUSTOMER_ID       NOT NULL NUMBER(7)
+FIRST_NAME        NOT NULL VARCHAR2(24)
+LAST_NAME         NOT NULL VARCHAR2(24)
+EMAIL                     VARCHAR2(25)
+ADDRESS_ID        NOT NULL NUMBER(8)
+LOCATION_ID       NOT NULL NUMBER(7)
+PHONE_NUMBER              VARCHAR2(100)
+SQL> DESC company;
+Name              Null?    Type
+----------------- -------- --------------
+COMPANY_ID        NOT NULL NUMBER(10)
+COMPANY_NAME      NOT NULL VARCHAR2(20)
+ADDRESS_ID        NOT NULL VARCHAR2(8)
+LOCATION_ID       NOT NULL NUMBER(7)
+CONTACT_ID        NOT NULL NUMBER(6)
+AFFILIATION_CODE  NOT NULL NUMBER(5)
+
+SQL> DESC commission;
+Name              Null?    Type
+----------------- -------- --------------
+COMMISSION_ID     NOT NULL NUMBER(4)
+ITINERARY_ID      NOT NULL NUMBER(4)
+COMMISSION_AMOUNT NOT NULL NUMBER(5,2)
+COMMISSION_STATUS NOT NULL VARCHAR2(100)
+
+SQL> DESC bill;
+Name              Null?    Type
+----------------- -------- --------------
+BILL_CODE         NOT NULL NUMBER(5)
+AGENCY_FEE_ID             VARCHAR2(100)
+BILL_DESCRIPTION  NOT NULL NUMBER(5,2)
+
+SQL> DESC class;
+Name              Null?    Type
+----------------- -------- --------------
+CLASS_ID         NOT NULL NUMBER(3)
+CLASS_TYPE               VARCHAR2(100)
+DESCRIPTION     NOT NULL NUMBER(5,2)
+
+SQL> DESC agency_fees;
+Name              Null?    Type
+----------------- -------- --------------
+AGENCY_FEE_ID    NOT NULL NUMBER(5)
+FEE_DESCRIPTION           VARCHAR2(100)
+FEE_AMOUNT       NOT NULL NUMBER(5,2)
+
+SQL> DESC product;
+Name              Null?    Type
+----------------- -------- --------------
+PRODUCT_ID        NOT NULL NUMBER(4)
+PRODUCT_DESCRIPTION NOT NULL VARCHAR2(100)
+
+SQL> DESC trip;
+Name                  Null?    Type
+--------------------- -------- --------------
+TRIP_TYPE_ID          NOT NULL NUMBER(5)
+TRIP_TYPE_DESCRIPTION          VARCHAR2(100)
+BILL_CODE             NOT NULL NUMBER(4)
+
+The mentioned query serves the pivotal purpose of affirming that all tables cohesively belong to a singular tablespace. This strategic approach is instrumental in orchestrating the database architecture, providing a streamlined organizational framework, and enhancing accessibility for efficient database management.
+
+4.5 SQL*Loader Files
+-The data loading process employed the SQL*Loader utility, with the incorporation of supplementary data in the
+designated infiles.csv. No data augmentation was performed through the use of the INSERT clause, as a
+comprehensive approach to incorporating all data simultaneously was deemed more efficient. The initial step
+involved the meticulous segregation of data into distinct infiles, with each table having its dedicated infile.
+Subsequently, control files were meticulously crafted, wherein the aforementioned infiles were specified. It is
+crucial to note that prior to executing the SQL*Loader utility, the requisite tables, columns, and constraints had
+already been established, ensuring a structured and well-defined data environment.
+
+
+
+
+
+
+
+
